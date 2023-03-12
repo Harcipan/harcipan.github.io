@@ -1,0 +1,16 @@
+{
+"companyName": "PlayforWin",
+"productName": "TankRush",
+"productVersion": "0.99",
+"dataUrl": "v0.99.data.unityweb",
+"wasmCodeUrl": "v0.99.wasm.code.unityweb",
+"wasmFrameworkUrl": "v0.99.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Light",
+"backgroundColor": "#FFFFFF",
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.4.17f1"
+}

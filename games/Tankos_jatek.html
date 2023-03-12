@@ -1,0 +1,434 @@
+<html>
+  <head>
+    <title>Tank</title>
+	<meta charset="utf-8">
+	<link rel="shortcut icon" type="image/x-icon" href="pictures/tankos_jatek/tankosjatekkep.png" />
+   	<div class="logo">
+	<img src="unnamed.jpg" id="hp" style="width:100%"> </div>
+
+	<div style="visibility:hidden">
+	<img src="pictures/tankos_jatek/tankf.png" id="tankf" style="width:1%">
+	<img src="pictures/tankos_jatek/tankl.png" id="tankl" style="width:1%">
+	<img src="pictures/tankos_jatek/tankb.png" id="tankb" style="width:1%">
+	<img src="pictures/tankos_jatek/tankj.png" id="tankj" style="width:1%">
+	<img src="pictures/tankos_jatek/tankf2.png" id="tankf2" style="width:1%">
+	<img src="pictures/tankos_jatek/tankl2.png" id="tankl2" style="width:1%">
+	<img src="pictures/tankos_jatek/tankb2.png" id="tankb2" style="width:1%">
+	<img src="pictures/tankos_jatek/tankj2.png" id="tankj2" style="width:1%">
+	<img src="pictures/tankos_jatek/world.png" id="world" style="width:1%">
+	</div>
+   <style>
+   div.logo{
+   width:10%;
+   position:absolute;
+   transform: translate(400px,0px);
+   visibility:hidden;
+   }
+   </style>
+  </head>
+   <body onload=kezdet(); style= background:lightgreen; onkeydown=mozgas();>
+   	<div style= "background-color:green; position:absolute; left:120px; top:100px; height:40px; width:250px; border:solid; color:black; font-size:30;">Ennyi idő van:</div>
+	<div style= "background-color:green; position:absolute; left:120px; top:140px; height:40px; width:250px; border:solid; color:black; font-size:30;" id="ido"></div>
+	<div style= "background-color:green; position:absolute; left:400px; top:140px; height:40px; width:100px; border:solid; color:black; font-size:30;" id="gomb"></div>
+	<div style= "background-color:green; position:absolute; left:600px; top:140px; height:40px; width:150px; border:solid; color:black; font-size:30;" id="ytomb"></div>
+	<div style= "background-color:green; position:absolute; left:750px; top:140px; height:40px; width:150px; border:solid; color:black; font-size:30;" id="xtomb"></div>
+	<div style= "background-color:green; position:absolute; left:900px; top:140px; height:40px; width:150px; border:solid; color:black; font-size:30;" id="ytomb2"></div>
+	<div style= "background-color:green; position:absolute; left:1050px; top:140px; height:40px; width:150px; border:solid; color:black; font-size:30;" id="xtomb2"></div>
+
+  <script>
+  	var x = 265; //tank x pozíciója
+	var y = 250; //tank y pozíciója
+    var ctx;
+	var xloves=[]; //lövedék x pozíciója
+	var yloves=[]; //lövedék y pozíciója
+	var xloves2=[];
+	var yloves2=[];
+	var timerlovesf; //lövés timere, (igen tudom hogy ezzel sokkal vagy előrébb :D)
+	var timerlovesl;
+	var timerlovesb;
+	var timerlovesj;
+	var irany = 1; //cső iránya (1,2,3,4) (fel, le, balra, jobbra)
+	var animacio=1;//animáció állása
+	var falx=250;
+	var faly=50;
+	var falyy=410;
+	var timermozgas=0;
+	var max = 3; //golyók maximális száma
+
+  function kezdet(){ //body betöltésekor induló parancs
+   ctx = document.getElementById("vaszon").getContext("2d");
+   setTimeout(perc,1);
+   tankf();
+   timerlovesf = setInterval(lovesf,10);
+   timerlovesl = setInterval(lovesl,10);
+   timerlovesb = setInterval(lovesb,10);
+   timerlovesj = setInterval(lovesj,10);
+   for (var i=0; i<max; i++){
+   yloves[i]=500;
+   xloves[i]=500;
+   yloves2[i]=500;
+   xloves2[i]=500;
+   }
+	}
+
+	//óra
+	function perc() { //óra, idő lekérése
+	 var d = new Date();
+	 var h = d.getHours();
+	 var m = d.getMinutes();
+	 var s = d.getSeconds();
+	 m=idoell(m);
+	 s=idoell(s);
+	 document.getElementById("ido").innerHTML = h+":"+m+":"+s;
+	 setTimeout(perc,1000);
+	}
+
+	function idoell(i){
+	if (i < 10){
+	i = "0"+i;
+	}
+	return i;
+	}
+
+	function kép(){ //kép megjelenítése
+	 document.getElementById("hp").style.visibility = "visible";
+
+	}
+
+	//rajzolás
+
+    function torles(){
+	ctx.fillStyle="white";
+	ctx.fillRect(0,0,500,500);
+	}
+
+	function tankf(){
+	var tankf = document.getElementById("tankf");
+	ctx.drawImage(tankf,x,y);
+	var world = document.getElementById("world");
+	ctx.drawImage(world,0,0);
+	}
+
+	function tankb(){
+	var tankb = document.getElementById("tankb");
+	ctx.drawImage(tankb,x,y);
+	var world = document.getElementById("world");
+	ctx.drawImage(world,0,0);
+	}
+
+	function tankl(){
+	var tankl = document.getElementById("tankl");
+	ctx.drawImage(tankl,x,y);
+	var world = document.getElementById("world");
+	ctx.drawImage(world,0,0);
+	}
+
+	function tankj(){
+	var tankj = document.getElementById("tankj");
+	ctx.drawImage(tankj,x,y);
+	var world = document.getElementById("world");
+	ctx.drawImage(world,0,0);
+	}
+
+	function tankf2(){
+	var tankf2 = document.getElementById("tankf2");
+	ctx.drawImage(tankf2,x,y);
+	var world = document.getElementById("world");
+	ctx.drawImage(world,0,0);
+	}
+
+	function tankl2(){
+	var tankl2 = document.getElementById("tankl2");
+	ctx.drawImage(tankl2,x,y);
+	var world = document.getElementById("world");
+	ctx.drawImage(world,0,0);
+	}
+
+	function tankb2(){
+	var tankb2 = document.getElementById("tankb2");
+	ctx.drawImage(tankb2,x,y);
+	var world = document.getElementById("world");
+	ctx.drawImage(world,0,0);
+	}
+
+	function tankj2(){
+	var tankj2 = document.getElementById("tankj2");
+	ctx.drawImage(tankj2,x,y);
+	var world = document.getElementById("world");
+	ctx.drawImage(world,0,0);
+	}
+
+	function mozgas_balra1(){
+	torles();
+	x -=5;
+	ctx.fillStyle = "black";
+	tankb();
+	animacio=2;
+	}
+
+	function mozgas_balra2(){
+	torles();
+	x -=5;
+	ctx.fillStyle = "black";
+	tankb2();
+	animacio=1;
+	}
+
+	function mozgas_fel1(){
+	torles();
+	y -=5;
+	ctx.fillStyle = "black";
+	tankf();
+	animacio = 2;
+	}
+
+	function mozgas_fel2(){
+	torles();
+	y -=5;
+	ctx.fillStyle = "black";
+	tankf2();
+	animacio = 1;
+	}
+
+	function mozgas_jobbra1(){
+	torles();
+	x +=5;
+	ctx.fillStyle = "black";
+	tankj();
+	animacio = 2;
+	}
+
+	function mozgas_jobbra2(){
+	torles();
+	x +=5;
+	ctx.fillStyle = "black";
+	tankj2();
+	animacio = 1;
+	}
+
+	function mozgas_le1(){
+	torles();
+	y +=5;
+	ctx.fillStyle = "black";
+	tankl();
+	animacio = 2;
+	}
+
+	function mozgas_le2(){
+	torles();
+	y +=5;
+	ctx.fillStyle = "black";
+	tankl2();
+	animacio = 1;
+	}
+
+	function lovesf(){ //fel
+	var j;
+	for (j=0; j<max; j++){
+	if (yloves[j] >= -20 && yloves[j]<500 && irany==1){
+	ctx.fillStyle="white";
+	ctx.fillRect(x+25,yloves[j],10,10);
+	yloves[j] -= 5;
+	ctx.fillStyle="gray";
+	ctx.fillRect(x+25,yloves[j],10,10);
+	document.getElementById("ytomb").innerHTML=yloves;
+	}
+	else {
+	yloves[j]=500;
+	}
+	}
+	}
+
+	function lovesl(){ //le
+	var j;
+	for (j=0; j<max; j++){
+	if (yloves2[j]<500&& irany==2){
+	ctx.fillStyle="white";
+	ctx.fillRect(x+25,yloves2[j],10,10);
+	yloves2[j] += 5;
+	ctx.fillStyle="gray";
+	ctx.fillRect(x+25,yloves2[j],10,10);
+	document.getElementById("ytomb2").innerHTML=yloves2;
+	}
+	else {
+	yloves2[j]=500;
+	}
+	}
+	}
+
+   function lovesb(){//balra
+	var j;
+	for (j=0; j<max; j++){
+	if (xloves[j] >= -20 && xloves[j]<500&& irany==3){
+	ctx.fillStyle="white";
+	ctx.fillRect(xloves[j],y+20,10,10);
+	xloves[j] -= 5;
+	ctx.fillStyle="gray";
+	ctx.fillRect(xloves[j],y+20,10,10);
+	document.getElementById("xtomb").innerHTML=xloves;
+	}
+	else {
+	xloves[j]=500;
+	}
+	}
+	}
+
+	   function lovesj(){//jobbra
+	var j;
+	for (j=0; j<max; j++){
+	if (xloves2[j]<500&& irany==4){
+	ctx.fillStyle="white";
+	ctx.fillRect(xloves2[j],y+20,10,10);
+	xloves2[j] += 5;
+	ctx.fillStyle="gray";
+	ctx.fillRect(xloves2[j],y+20,10,10);
+	document.getElementById("xtomb2").innerHTML=xloves2;
+	}
+	else {
+	xloves2[j]=500;
+	}
+	}
+	}
+
+	//parancsok
+
+	function mozgas(){
+    var kod=event.which;
+	switch(kod){
+	case 37:	//balra
+	if (x>=10){
+	if (x>falx+5 || y<faly || y>falyy || x<falx){
+	if (irany == 3){
+	if (animacio==1){
+	mozgas_balra1();
+	}
+	else{
+	mozgas_balra2();
+	}
+	}
+	else {
+	torles();
+	tankb();
+	irany=3;
+	}
+	}
+	}
+	break;
+
+	case 38:	//fel
+	if (y>=10){
+	if (x>=falx+10 || y<faly || y>falyy+10 || x<falx-50){
+	if (irany == 1){
+	if (animacio==1){
+	mozgas_fel1();
+	}
+	else{
+	mozgas_fel2();
+	}
+	}
+	else {
+	torles();
+	tankf();
+	irany=1;
+	}
+	}
+	}
+	break;
+
+	case 39:	//jobbra
+	if (x<=420){
+	if (y<faly || y>falyy || x<falx-74 || x>falx){
+	if (irany == 4){
+	if (animacio==1){
+	mozgas_jobbra1();
+	}
+	else{
+	mozgas_jobbra2();
+	}
+	}
+	else {
+	torles();
+	tankj();
+	irany=4;
+	}
+	}
+	}
+	break;
+
+	case 40:	//le
+	if (y<=420){
+	if (x>=falx+10 || y<faly-30 || y>falyy || x<falx-50){
+	if (irany == 2){
+	if (animacio==1){
+	mozgas_le1();
+	}
+	else{
+	mozgas_le2();
+	}
+	}
+	else {
+	torles();
+	tankl();
+	irany=2;
+	}
+	}
+	}
+	break;
+
+	case 32:
+	if (irany==1){ //fel
+	var k;
+	for (k=0; k<max; k++){
+	if (yloves[k]==500){
+	yloves[k]=y-10;
+	lovesf();
+	break;
+	}
+	}
+	}
+	else {
+	if (irany==2){//le
+	var k;
+	for (k=0; k<max; k++){
+	if (yloves2[k]==500){
+	yloves2[k]=y+70;
+	lovesl();
+	break;
+	}
+	}
+	}
+	else {
+	if (irany==3){//balra
+	var k;
+	for (k=0; k<max; k++){
+	if (xloves[k]==500){
+	xloves[k]=x-10;
+	lovesb();
+	break;
+	}
+	}
+	}
+	else {
+	if (irany==4){//jobbra
+	var k;
+	for (k=0; k<max; k++){
+	if (xloves2[k]==500){
+	xloves2[k]=x+70;
+	lovesj();
+	break;
+	}
+	}
+	}
+	}
+	}
+	}
+	}
+	document.getElementById("gomb").innerHTML = kod;
+	}
+
+  </script>
+  <div style="position:absolute; top:200; left:100;">
+  <canvas id="vaszon" width="500" height="500;" style="color:black; border:solid; background-color:white;"></canvas>
+  </div>
+   </body>
+</html>

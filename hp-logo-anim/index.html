@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <title>PlayforWin</title>
+  <meta charset="utf-8">
+</head>
+<body>
+	<div id="anim" style="width:500px; height:500px;"></div>
+	<script src="lottie.js"></script>
+	<script>
+	var animation = bodymovin.loadAnimation({
+		container: document.getElementById('anim'),
+		render: 'svg',
+		loop: true,
+		autoplay: true,
+		path: 'data.json'
+	})
+	</script>
+</body>
+</html>

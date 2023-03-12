@@ -1,0 +1,380 @@
+﻿<html>
+ <head>
+  <meta charset="utf-8">
+  <style>*{margin:0px;} .toltelek{height: 20%;} @media screen and (max-width: 1222px){canvas{width:600px ;} .toltelek{height: 80%;}}</style>
+  <title>Ágyú</title>
+  <link rel="shortcut icon" type="image/x-icon" href="..//kepek/agyu.png" />
+  <link rel="stylesheet" type="text/css" href="..//styles/style.css?ts=<?=time()?>">
+  <link rel="stylesheet" type="text/css" href="..//styles/navbar_style.css?ts=<?=time()?>">
+  <link rel="stylesheet" type="text/css" href="..//styles/footer_style.css?ts=<?=time()?>">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+
+      var ctx;
+  	  var CanvasH=600;//canvas magasság
+  	  var CanvasW=1200;//canvas szélesség
+      var xagyu; //agyu x (egyetlen) kord
+      var yloves; //lövedék y kord
+      var xloves; //lövedék x kord (állandó)
+      var TimerBal = 0;
+      var TimerJobb = 0;
+      var TimerFel = 0;
+      var TimerVonalJobb = 0;
+      var TimerVonalBal = 0;
+      var xvonal = 0; //céltábla x poz (0-1200)
+      var yvonal = 0; //céldábla y poz (20-asával növekszik, 0-600)
+      var Talalat = 0;
+      var Sebesseg = 32; //céltábla sebessége (minél nagyobb annál lassabb) (mennyi időnként fut le az animáció)
+  	var korokSzama = 1 //hányadik kört játsza a játékos
+  	var vege = false; //a céltábla a legalacsonyabb pontjára ért, a játék újraindul
+
+     function kezdet(){
+      ctx = document.getElementById("vaszon").getContext("2d");
+  	xagyu=600;
+  	document.getElementById("xagyuErtek").value = xagyu;
+  	document.getElementById("korokSzama").value = korokSzama;
+  	agyu(xagyu);
+      vonalkezdet();
+     }
+
+     function Vege(){//ágyu letörlése majd reset
+  	//esetlegesen ottmaradt gyolyók letörlése (0,0,1200,400)
+  	//ágyú letörlése
+  	//vége kiírása
+  	reset();
+     }
+
+     function reset(){
+  	clearMap();
+  	clearInterval(TimerVonalBal);
+  	clearInterval(TimerVonalJobb);
+  	clearInterval(TimerFel);
+  	clearInterval(TimerBal);
+  	clearInterval(TimerJobb);
+  	Sebesseg=32;
+  	TimerVonalBal = 0;
+  	TimerVonalJobb = 0;
+  	TimerFel = 0;
+  	TimerJobb = 0;
+  	TimerBal = 0;
+  	pontok=0;
+  	korokSzama+=1;
+  	document.getElementById("korokSzama").value = korokSzama;
+  	yvonal=0;
+  	xvonal=0;
+  	xagyu=CanvasW/2;
+  	vege=false;
+  	agyu(xagyu);
+  	vonalkezdet();
+     }
+
+     function vonalkezdet(){
+      if (yvonal >= CanvasH){Vege();}
+      else{
+      	yloves=440;
+      	xvonal=0;
+      	Sebesseg-=2;
+      	ctx.fillStyle = "LightGray";
+      	ctx.fillRect(0,yvonal-20,1200,20)
+      	TimerVonalJobb=setInterval(VonalJobb,Sebesseg);
+  	document.getElementById("xvonalErtek").value = xvonal;
+  	document.getElementById("yvonalErtek").value = yvonal;
+      	}
+     }
+
+     function VonalJobb(){//vonal leért az ágyúig
+  	if (yvonal>=CanvasH-200){
+  		vege=true;
+  		ctx.fillStyle = "LightGray";
+  		ctx.fillRect(0,0,CanvasW,CanvasH-200);
+  		Sebesseg*=0.1;
+  	}
+      if (yvonal<=600){
+  	    if (xvonal >= CanvasW-100) {clearInterval(TimerVonalJobb);
+        		TimerVonalJobb=0;
+        		if (TimerVonalBal == 0){
+  				TimerVonalBal=setInterval(VonalBal,Sebesseg);
+  				ctx.fillStyle = "LightGray";
+  				ctx.fillRect(0,yvonal,1200,20)
+  				yvonal+=20;
+        		}
+      	    }
+
+  		clearVonal();
+      	xvonal+=5;
+      	ctx.fillStyle = "black";
+      	ctx.fillRect(xvonal,yvonal,100,20);
+  	document.getElementById("xvonalErtek").value = xvonal;
+  	document.getElementById("yvonalErtek").value = yvonal;
+      }
+      else {Vege();}
+    }
+
+     function VonalBal(){
+  	if (yvonal>=CanvasH-200){
+  		vege=true;
+  		ctx.fillStyle = "LightGray";
+  		ctx.fillRect(0,0,CanvasW,CanvasH-200);
+  		Sebesseg*=0.1;
+  	}
+      if (yvonal<=600){
+      	if (xvonal<=0) {clearInterval(TimerVonalBal);
+        		TimerVonalBal=0;
+        		if (TimerVonalJobb == 0){
+  		TimerVonalJobb=setInterval(VonalJobb,Sebesseg);
+  		ctx.fillStyle = "LightGray";
+     		ctx.fillRect(0,yvonal,1200,20)
+  		yvonal+=20;
+        		}
+      	}
+  		clearVonal();
+      	xvonal-=5;
+      	ctx.fillStyle = "black";
+      	ctx.fillRect(xvonal,yvonal,100,20);
+  	document.getElementById("xvonalErtek").value = xvonal;
+  	document.getElementById("yvonalErtek").value = yvonal;
+      }
+      else {Vege()}
+   }
+
+   	function clearVonal(){
+  		ctx.fillStyle = "LightGray";
+      	ctx.fillRect(xvonal,yvonal,100,20);
+  	 }
+
+     function agyu(x){
+      ctx.fillStyle = "red";
+      ctx.fillRect(x-40,540,80,40);
+  	ctx.fillStyle = "yellow";
+  	ctx.fillRect(x-65,520,25,80);
+  	ctx.fillRect(x+40,520,25,80);
+  	ctx.fillStyle = "blue";
+  	ctx.fillRect(x-10,460,20,130);
+     }
+
+     function agyumozogb(){
+  	if(!vege){
+  		if ( xagyu >= 20){
+  			clearAgyu()
+  			xagyu-=5;
+  			agyu(xagyu);
+  		}
+  		document.getElementById("xagyuErtek").value = xagyu;
+  	}
+     }
+
+     function agyumozogj(){
+  	if(!vege){
+  		if ( xagyu <= 1180){
+  			clearAgyu()
+  			xagyu+=5;
+  			agyu(xagyu);
+  		}
+  		document.getElementById("xagyuErtek").value = xagyu;
+  	}
+     }
+
+     function clearAgyu(){
+  	ctx.fillStyle = "LightGray";
+  	ctx.fillRect(xagyu-65,460,130,150);
+     }
+
+     function bumm() {
+  	clearInterval(TimerVonalBal);
+  	clearInterval(TimerVonalJobb);
+  	clearInterval(TimerFel);
+  	TimerVonalBal = 0;
+  	TimerVonalJobb = 0;
+  	TimerFel = 0;
+  	Talalat+=1;
+  	document.getElementById("TalalatErtek").value = Talalat;
+  	ctx.fillStyle = "LightGray";
+      	ctx.fillRect(xloves,yloves,20,20);
+  	yvonal+=20;
+  	vonalkezdet();
+     }
+
+     function loves(){
+  	if(!vege){
+      	if(yloves >=-20) {
+  			document.getElementById("ylovesErtek").value = yloves;
+  			document.getElementById("xlovesErtek").value = xloves;
+  			ctx.fillStyle = "LightGray";
+  				ctx.fillRect(xloves,yloves,20,20);
+  			yloves-=5;
+  			ctx.fillStyle = "red";
+  			ctx.fillRect(xloves,yloves,20,20);
+
+  		if (yloves == yvonal+20 && xloves>= xvonal-19 && xloves<=xvonal+119 ) {
+  			bumm();
+  		}
+  		}
+  	else{
+  	clearInterval(TimerFel);
+  	TimerFel=0;
+  	yloves = 440;
+  	}
+     }
+  }
+
+     function clearMap(){
+  	ctx.fillStyle = "LightGray";
+  	ctx.fillRect(0,0,CanvasW,CanvasH);
+     }
+
+     function billle(){
+      var kod=event.which;
+
+      switch (kod){
+       case 37:
+  	if (TimerBal == 0) {TimerBal=setInterval(agyumozogb,10);}     //balra
+       break;
+       case 39:
+  	if (TimerJobb == 0) {TimerJobb=setInterval(agyumozogj,10);}  //jobbra
+  	break;
+       case 32:
+  	if (TimerFel == 0) {
+  	xloves=xagyu-10;
+          TimerFel=setInterval(loves,10);}      //lövés
+  	break;
+  	}
+     }
+
+     function billfel(){
+      var kod=event.which;
+
+      switch (kod){
+       case 37:
+  	clearInterval(TimerBal);
+  	TimerBal=0;
+       break;
+       case 39:
+  	clearInterval(TimerJobb);
+  	TimerJobb=0
+       break;
+      }
+     }
+
+     window.addEventListener('keydown', function(e) {
+  		if(e.keyCode == 32 && e.target == document.body) {
+  			e.preventDefault();
+  		}
+  	});
+</script>
+ </head>
+ <body onload="kezdet();" onkeydown="billle();" onkeyup="billfel();">
+    <!--<div lang="hu" id="hu"> hungarian language-->
+     	<div style="background-image: url('../kepek/pfw-hatter.jpg')">
+      <!--navbar-->
+      <div class="navbar-cont">
+        <div class="navbar-item n-i-s" style="flex-direction: row;">
+            <a class="nav-link" href="https://playforwin.hu"style="font-family: against; font-size:50px;">PfW</a>
+            <a class="nav-link" href="https://playforwin.hu/rolunk">Rólunk</a>
+            <a class="nav-link" href="https://playforwin.hu/setup">Setupok</a>
+            <a class="nav-link" href="https://playforwin.hu/jatekok">Játékok</a>
+            <a class="nav-link" href="https://playforwin.hu/linkek">Linkek</a>
+            <a class="nav-link" href="https://playforwin.hu/mcserver">Minecraft Szerver</a>
+        </div>
+        <div class="navbar-item n-i-e" style="flex-direction: row;">
+            <a class="nav-link" href="#"onclick="angolul()">Angol</a>
+            <a class="nav-link" href="#"onclick="magyarul()">Magyar</a>
+        </div>
+      </div>
+
+      <div class="navbar-cont-mobile">
+        <div class="navbar-item n-i-s" style="flex-direction: row;">
+            <a class="nav-link" href="https://playforwin.hu"style="font-family: against; font-size:50px;">PfW</a>
+        </div>
+        <div class="navbar-item n-i-e" style="flex-direction: row;">
+            <div class="line-container">
+                <div class="line line-1"></div>
+                <div class="line line-2"></div>
+                <div class="line line-3"></div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar-cont-mobile-list" style="flex-direction: column;">
+        <div class="navbar-item" >
+            <a class="nav-link" href="https://playforwin.hu/rolunk">Rólunk</a>
+        </div>
+        <div class="navbar-item" >
+            <a class="nav-link" href="https://playforwin.hu/setup">Setupok</a>
+        </div>
+        <div class="navbar-item" >
+            <a class="nav-link" href="https://playforwin.hu/jatekok">Játékok</a>
+        </div>
+        <div class="navbar-item" >
+            <a class="nav-link" href="https://playforwin.hu/linkek">Linkek</a>
+        </div>
+        <div class="navbar-item" >
+            <a class="nav-link" href="https://playforwin.hu/mcserver">Minecraft Szerver</a>
+        </div>
+        <div class="navbar-item" >
+            <a class="nav-link" href="#"onclick="angolul()">Angol</a>
+        </div>
+        <div class="navbar-item" >
+            <a class="nav-link" href="#"onclick="magyarul()">Magyar</a>
+        </div>
+    </div>
+    <!--main-->
+		<div style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; color:white;">
+			<div style="width:100%;padding: 5% 0px 10px 0px;"><canvas id="vaszon" width="1200" height="600" style="background-color:LightGray;"></canvas></div>
+			<div style="text-align:left;">
+				<div style="padding: 10px 0px;"><div style="font-weight: bold;">Leírás: </div>Táld el a céltáblát minél többször, miellött eléri az ágyúd.</div>
+				<div style="font-weight: bold;">Irányítás: </div>
+				<div style="display:flex;flex-direction: row;">Tank mozgatása:<div style="border: solid white 1px; width: 20px; margin-left: 5px; padding-left: 4px;"><-</div><div style="border: solid white 1px; width: 20px; margin:0px 5px; padding-left: 4px;">-></div>(jobbra-balra nyilak)</div>
+				<div style="display:flex;flex-direction: row;">Lövés:<div style="border: solid white 1px; width: 50px; margin-left: 5px; padding-left: 4px;">Space</div></div>
+				<div style="padding: 10px 0px;"><div style="font-weight: bold;">Készült: </div>2018</div>
+
+				<div style="flex-direction: row; padding-top: 10px;">Pontok: <input style="background-color: transparent; border:none;" type="text" size="5"  value="0" id="TalalatErtek" disabled></div>
+				<div style="flex-direction: row;">Kör: <input style="background-color: transparent; border:none;" type="text" size="5"  value="0" id="korokSzama" disabled></div>
+			</div>
+			<div><button onclick="reset();this.blur();"  style="background-color:transparent; height: 50px;">Reset</button></div>
+		</div>
+		<div hidden>
+			<br> xloves értéke: <input type="text" size="10"  value="" id="xlovesErtek" disabled><br>
+			<br> yloves értéke: <input type="text" size="10"  value="" id="ylovesErtek" disabled><br>
+			<br> xagyu értéke: <input type="text" size="10"  value="" id="xagyuErtek" disabled><br>
+			<br> xvonal értéke: <input type="text" size="10"  value="" id="xvonalErtek" disabled><br>
+			<br> yvonal értéke: <input type="text" size="10"  value="" id="yvonalErtek" disabled><br>
+		</div>
+	</div>
+  <!--footer-->
+  <div class="footer-cont">
+    <div class="footer-item">
+        <div class="foot-item-tit">Kontakt</div>
+        <div class="f-i-s">
+            <div class="tooltip">
+                <div class="foot-item-text" style="cursor: pointer;" onclick="contact_hp()" onmouseout="outFunc_hp()"><span class="tooltiptext" id="myTooltip">Copy to clipboard</span>Harcipan</div>
+            </div>
+        </div>
+        <div class="f-i-s">
+            <div class="tooltip">
+                <div class="foot-item-text" style="cursor: pointer;" onclick="contact_kb()" onmouseout="outFunc_kb()"><span class="tooltiptext" id="myTooltip2">Copy to clipboard</span>Kriszbubu</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-item">
+        <div class="foot-item-text" style="font-family: against; font-size:50px; cursor: default;">PfW</div>
+    </div>
+    <div class="footer-item">
+        <div class="foot-item-tit">Kövess Minket</div>
+        <div class="f-i-e">
+            <i class="fab fa-youtube" style="padding-bottom: 6px; padding-top:6px;" onclick="window.location='https://www.youtube.com/c/harcipan';"></i>
+            <i class="fab fa-instagram" style="padding-bottom: 6px; padding-top:6px;" onclick="window.location='https://www.instagram.com/harcipan/';"></i>
+         </div>
+        <div class="f-i-e">
+            <i class="fab fa-twitch" onclick="window.location='https://www.twitch.tv/kriszbubu';"></i>
+            <i class="fab fa-youtube" onclick="window.location='https://www.youtube.com/channel/UCy3yNK-EadvQCXvWVWrC5zQ';"></i>
+            <i class="fab fa-instagram" onclick="window.location='https://www.instagram.com/kriszbubu_/';"></i>
+            <i class="fab fa-tiktok" onclick="window.location='https://www.tiktok.com/@_kriszbubu_?';"></i>
+        </div>
+    </div>
+  </div>
+  <div class="footer-cont">
+    <div class="footer-item copyszoveg"><div class="foot-item-tit" style="font-size: 20px;">© Copyright 2020-21 | PlayforWin | Minden jog fenntartva.</div></div>
+  </div>
+<!--</div>-->
+ </body>
+</html>

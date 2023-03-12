@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Kinetikus gázmodell</title>
+        <meta charset="UTF-8">
+		<link rel="shortcut icon" type="image/x-icon" href="..//kepek/kinetikus_gazmodell.png" />
+    <link rel="stylesheet" type="text/css" href="..//styles/style.css?ts=<?=time()?>">
+    <link rel="stylesheet" type="text/css" href="..//styles/navbar_style.css?ts=<?=time()?>">
+    <link rel="stylesheet" type="text/css" href="..//styles/footer_style.css?ts=<?=time()?>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<style>
+		 body{background-image:url(..//kepek/pfw-hatter.jpg);}
+         canvas {background-color: azure;}
+		</style>
+  <script>
+		 var ctx;
+		 var gaz = []; //Az összes részecske tárolására való (gáz és por és esetleg majd egyéb)
+		 var Ng = 50; //Gázmolekulák száma
+		 var Np = 5; //Por részecskék száma
+		 var N = Np + Ng; //összes részecskék száma
+		 var R = 5;  //Gázmolekulák sugara
+		 var Rp = 10; //por részecske sugara
+		 var M = 1; //Gáz részecskék tömege
+		 var Mp = 10; //Por részecskék tömege
+		 var Canv_width_max = 1600;
+		 var Canv_height_max = 800;
+		 var Timer;
+		 var fris_seb = 50;
+		 var Q = 1.1 // melegítés <0
+
+		 function indul(){
+		  ctx = document.getElementById('canvas').getContext('2d');
+
+		  // A gázmolekulák véletlenszerű létrehozása és kirajzolása
+		  var i = 0;
+          for (i = 0; i<Ng; i++){
+			 gaz[i] = {x:Math.floor(Math.random()*(Canv_width_max-2*R))+R,
+			           y:Math.floor(Math.random()*(Canv_height_max-2*R))+R,
+					   vx:Math.floor(Math.random()*(4*R))-2*R,
+					   vy:Math.floor(Math.random()*(4*R))-2*R,
+					   r:R,
+					   szin:"red",
+					   m: M};
+			 kimolekula(gaz[i]);
+			}
+
+         //A por részecskék feltöltése és kirajzolása
+		 for (i = Ng; i<N; i++){
+		     gaz[i] = {x:Math.floor(Math.random()*(Canv_width_max-2*Rp))+Rp,
+			           y:Math.floor(Math.random()*(Canv_height_max-2*Rp))+Rp,
+					   vx:Math.floor(Math.random()*(4*Rp))-2*Rp,
+					   vy:Math.floor(Math.random()*(4*Rp))-2*Rp,
+					   r:Rp,
+					   szin:"green",
+					   m: Mp};
+
+			 kimolekula(gaz[i]);
+			 }
+
+		  Timer=setInterval(animal,fris_seb);
+		 }
+
+
+		 function kimolekula(cs){
+		   ctx.beginPath();
+		    ctx.fillStyle = cs.szin;
+            ctx.arc(cs.x,cs.y,cs.r,0,2*Math.PI);
+		   ctx.fill();
+		 }
+
+		function animal(){
+          var i;
+		  var j;
+
+		  for (i = 0; i<N; i++){                  //új hely kiszámítása  gáz
+		     gaz[i].x += gaz[i].vx;
+			 gaz[i].y += gaz[i].vy;
+			 if ((gaz[i].x<gaz[i].r) && (gaz[i].vx<0)){ //bal oldalról pattanjon vissza
+			   gaz[i].vx *= -Q;
+			 }
+			 if ((gaz[i].x>Canv_width_max-gaz[i].r) && (gaz[i].vx>0)){ //jobbról pattanjon vissza
+			   gaz[i].vx *= -Q;
+		     }
+		     if ((gaz[i].y<gaz[i].r) && (gaz[i].vy<0)){ //fellülről pattanjon vissza
+			   gaz[i].vy *= -Q;
+		     }
+		     if ((gaz[i].y>Canv_height_max-gaz[i].r) && (gaz[i].vy>0)){ //allulról pattanjon vissza
+			   gaz[i].vy *= -Q;
+		     }
+          }
+
+
+		  //ütközések vizsgálata
+		  var uix,uiy,ujx,ujy;
+		  for (i = 0; i<N-1; i++){
+		   for (j = i+1; j<N; j++){
+		    if ((gaz[j].x - gaz[i].x)*(gaz[j].x - gaz[i].x) +
+			 (gaz[j].y - gaz[i].y)*(gaz[j].y - gaz[i].y) <=
+			         (gaz[i].r+gaz[j].r)*(gaz[i].r+gaz[j].r)) {
+
+			  uix=((gaz[i].m-gaz[j].m)*gaz[i].vx+2*gaz[j].m*gaz[j].vx)/(gaz[i].m+gaz[j].m);
+			  ujx=((gaz[j].m-gaz[i].m)*gaz[j].vx+2*gaz[i].m*gaz[i].vx)/(gaz[i].m+gaz[j].m);
+
+			  uiy=((gaz[i].m-gaz[j].m)*gaz[i].vy+2*gaz[j].m*gaz[j].vy)/(gaz[i].m+gaz[j].m);
+			  ujy=((gaz[j].m-gaz[i].m)*gaz[j].vy+2*gaz[i].m*gaz[i].vy)/(gaz[i].m+gaz[j].m);
+
+			  gaz[i].vx = uix;
+			  gaz[i].vy = uiy;
+			  gaz[j].vx = ujx;
+			  gaz[j].vy = ujy;
+			 }
+            }
+           }
+
+		  // vászon törlés
+		  ctx.fillStyle = "azure";
+		  ctx.fillRect(0,0,Canv_width_max,Canv_height_max);
+
+		  //A részecskék kirajzolása az új helyen
+		  var i;
+		  for (i = 0; i<N; i++){
+		    kimolekula(gaz[i]);
+	      }
+        }
+
+
+	</script>
+    </head>
+    <body onload="indul();">
+      <!--navbar-->
+      <div class="navbar-cont">
+        <div class="navbar-item n-i-s" style="flex-direction: row;">
+            <a class="nav-link" href="https://playforwin.hu"style="font-family: against; font-size:50px;">PfW</a>
+            <a class="nav-link" href="https://playforwin.hu/rolunk">Rólunk</a>
+            <a class="nav-link" href="https://playforwin.hu/setup">Setupok</a>
+            <a class="nav-link" href="https://playforwin.hu/jatekok">Játékok</a>
+            <a class="nav-link" href="https://playforwin.hu/linkek">Linkek</a>
+            <a class="nav-link" href="https://playforwin.hu/mcserver">Minecraft Szerver</a>
+        </div>
+        <div class="navbar-item n-i-e" style="flex-direction: row;">
+            <a class="nav-link" href="#"onclick="angolul()">Angol</a>
+            <a class="nav-link" href="#"onclick="magyarul()">Magyar</a>
+        </div>
+      </div>
+
+      <div class="navbar-cont-mobile">
+        <div class="navbar-item n-i-s" style="flex-direction: row;">
+            <a class="nav-link" href="https://playforwin.hu"style="font-family: against; font-size:50px;">PfW</a>
+        </div>
+        <div class="navbar-item n-i-e" style="flex-direction: row;">
+            <div class="line-container">
+                <div class="line line-1"></div>
+                <div class="line line-2"></div>
+                <div class="line line-3"></div>
+            </div>
+        </div>
+      </div>
+      <div class="navbar-cont-mobile-list" style="flex-direction: column;">
+        <div class="navbar-item" >
+            <a class="nav-link" href="https://playforwin.hu/rolunk">Rólunk</a>
+        </div>
+        <div class="navbar-item" >
+            <a class="nav-link" href="https://playforwin.hu/setup">Setupok</a>
+        </div>
+        <div class="navbar-item" >
+            <a class="nav-link" href="https://playforwin.hu/jatekok">Játékok</a>
+        </div>
+        <div class="navbar-item" >
+            <a class="nav-link" href="https://playforwin.hu/linkek">Linkek</a>
+        </div>
+        <div class="navbar-item" >
+            <a class="nav-link" href="https://playforwin.hu/mcserver">Minecraft Szerver</a>
+        </div>
+        <div class="navbar-item" >
+            <a class="nav-link" href="#"onclick="angolul()">Angol</a>
+        </div>
+        <div class="navbar-item" >
+            <a class="nav-link" href="#"onclick="magyarul()">Magyar</a>
+        </div>
+      </div>
+
+	  <div style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; color:white;">
+		<h2 style="padding: 5% 0px 10px 0px;">Kinetikus gázmodell</h2>
+		<div style="width:100%;"><canvas id="canvas" width="1600" height="800"></canvas></div>
+			<div style="text-align:left;">
+				<div style="padding: 10px 0px;"><div style="font-weight: bold;">Leírás: </div>Kinetikus Gázmodell szemléltetése</div>
+				<div style="padding: 10px 0px;"><div style="font-weight: bold;">Készült: </div>2018</div>
+			</div>
+	  </div>
+    <!--footer-->
+    <div class="footer-cont">
+      <div class="footer-item">
+          <div class="foot-item-tit">Kontakt</div>
+          <div class="f-i-s">
+              <div class="tooltip">
+                  <div class="foot-item-text" style="cursor: pointer;" onclick="contact_hp()" onmouseout="outFunc_hp()"><span class="tooltiptext" id="myTooltip">Copy to clipboard</span>Harcipan</div>
+              </div>
+          </div>
+          <div class="f-i-s">
+              <div class="tooltip">
+                  <div class="foot-item-text" style="cursor: pointer;" onclick="contact_kb()" onmouseout="outFunc_kb()"><span class="tooltiptext" id="myTooltip2">Copy to clipboard</span>Kriszbubu</div>
+              </div>
+          </div>
+      </div>
+      <div class="footer-item">
+          <div class="foot-item-text" style="font-family: against; font-size:50px; cursor: default;">PfW</div>
+      </div>
+      <div class="footer-item">
+          <div class="foot-item-tit">Kövess Minket</div>
+          <div class="f-i-e">
+              <i class="fab fa-youtube" style="padding-bottom: 6px; padding-top:6px;" onclick="window.location='https://www.youtube.com/c/harcipan';"></i>
+              <i class="fab fa-instagram" style="padding-bottom: 6px; padding-top:6px;" onclick="window.location='https://www.instagram.com/harcipan/';"></i>
+           </div>
+          <div class="f-i-e">
+              <i class="fab fa-twitch" onclick="window.location='https://www.twitch.tv/kriszbubu';"></i>
+              <i class="fab fa-youtube" onclick="window.location='https://www.youtube.com/channel/UCy3yNK-EadvQCXvWVWrC5zQ';"></i>
+              <i class="fab fa-instagram" onclick="window.location='https://www.instagram.com/kriszbubu_/';"></i>
+              <i class="fab fa-tiktok" onclick="window.location='https://www.tiktok.com/@_kriszbubu_?';"></i>
+          </div>
+      </div>
+    </div>
+    <div class="footer-cont">
+      <div class="footer-item copyszoveg"><div class="foot-item-tit" style="font-size: 20px;">© Copyright 2020-21 | PlayforWin | Minden jog fenntartva.</div></div>
+    </div>
+    </body>
+</html>
