@@ -1,0 +1,58 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="footer-cont" style="margin-top: 20px;"><!--footer-->
+    <div class="footer-item">
+        <div class="foot-item-tit">Contact</div>
+        <div class="f-i-s">
+            <div class="tooltip">
+                <div class="foot-item-text" style="cursor: pointer;" onclick="contact_hp()" onmouseout="outFunc_hp()"><span class="tooltiptext" id="myTooltip">Copy to clipboard</span>Harcipan</div>    
+            </div>
+        </div>
+        <div class="f-i-s">
+            <div class="tooltip">
+                <div class="foot-item-text" style="cursor: pointer;" onclick="contact_kb()" onmouseout="outFunc_kb()"><span class="tooltiptext" id="myTooltip2">Copy to clipboard</span>Kriszbubu</div>    
+            </div>
+        </div>
+    </div>
+    <div class="footer-item">
+        <div class="foot-item-text" style="font-family: against; font-size:50px; cursor: default;">PfW</div>
+    </div>
+    <div class="footer-item">
+        <div class="foot-item-tit">Follow</div>
+        <div class="f-i-e">
+            <i class="fab fa-youtube" style="padding-bottom: 6px; padding-top:6px;" onclick="window.location='https://www.youtube.com/c/harcipan';"></i>
+            <i class="fab fa-instagram" style="padding-bottom: 6px; padding-top:6px;" onclick="window.location='https://www.instagram.com/harcipan/';"></i>
+         </div>
+        <div class="f-i-e">
+            <i class="fab fa-twitch" onclick="window.location='https://www.twitch.tv/kriszbubu';"></i>
+            <i class="fab fa-youtube" onclick="window.location='https://www.youtube.com/channel/UCy3yNK-EadvQCXvWVWrC5zQ';"></i>
+            <i class="fab fa-instagram" onclick="window.location='https://www.instagram.com/kriszbubu_/';"></i>
+            <i class="fab fa-tiktok" onclick="window.location='https://www.tiktok.com/@_kriszbubu_?';"></i>
+        </div>
+    </div>
+  </div>
+  <div class="footer-cont">
+    <div class="footer-item copyszoveg"><div class="foot-item-tit" style="font-size: 20px;">© Copyright 2020-21 | PlayforWin | All rights reserved.</div></div>
+  </div>
+
+<script>
+    function contact_hp(){
+    navigator.clipboard.writeText("harcipan13@gmail.com");
+    var tooltip = document.getElementById("myTooltip");
+    tooltip.innerHTML = "Copied: harcipan15@gmail.com";
+}
+function contact_kb(){
+    navigator.clipboard.writeText("playforwin15@gmail.com");            
+    var tooltip = document.getElementById("myTooltip2");
+    tooltip.innerHTML = "Copied: playforwin15@gmail.com";
+}
+
+function outFunc_hp() {
+  var tooltip = document.getElementById("myTooltip");
+  tooltip.innerHTML = "Copy to clipboard";
+}
+function outFunc_kb() {
+  var tooltip = document.getElementById("myTooltip2");
+  tooltip.innerHTML = "Copy to clipboard";
+}
+</script>

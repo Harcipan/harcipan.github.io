@@ -1,0 +1,50 @@
+.lista_tag{
+  display: flex;
+  flex-direction: row;
+  align-items:center;
+  margin: 10px 30%;
+  border: solid;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.lista_tag:hover, .post:hover{
+    transition-duration: 0.4s;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    cursor: pointer;
+}
+
+.lista_kep{
+  flex:30%;
+  padding:0 10px;
+}
+
+.lista_nev {
+  flex: 70%;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: left;
+}
+
+.lista_leiras{
+  font-weight: normal;
+  font-size: 16px;
+}
+
+.cím{
+  text-align: center;
+  padding:10px;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.linkek_helytolto{
+  height: 30px;
+}
+
+@media screen and (max-width: 1100px){
+  .lista_tag {
+    margin:10px;
+    padding: 20px;
+  }
+}

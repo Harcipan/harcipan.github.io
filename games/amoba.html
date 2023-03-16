@@ -1,0 +1,336 @@
+<html>
+    <head>
+        <title>Amőba játék</title>
+        <meta charset="UTF-8">
+		<link rel="shortcut icon" type="image/x-icon" href="pictures/amoba.png" />
+		<style>
+		 body {background-color: #99ffff;}
+         canvas {background-color: lightblue;}
+		 div {
+		  position: fixed;
+          top: 0px;
+          left: 0px;
+		  border:none;
+		 }
+		</style>
+        <script>
+		 var ctx;
+		 var n = 48, m = 27; //A rács mérete: n: oszlopok száma; m: sorok száma
+		 var a = 40;       //A rácsméret (pixelben)
+         var X0 = 0;      //A canvas a client területhez képest ennyivel van beljebb
+         var Y0 = 0;      //A canvas a client területhez képest ennyivel van lejebb
+		 var jatek = [];   //A O és X értékeket tároló 2D-s tömb; 0 szabad 1 0, -1 x;
+		 var jel = -1;     //x kezd
+		 var eredmeny = 0; //A 3 vizsgált elem értéke
+		 var game = true;
+
+		 function indul(){
+		  ctx = document.getElementById('canvas').getContext('2d');
+
+		  //A négyzetrács kirajzolása
+
+		  //A függőleges vonalak
+		  var i;
+
+		  ctx.beginPath();
+		   for (i = 0; i<= n; i++){
+		    ctx.strokeStyle="black";
+		    ctx.moveTo(i*a, 0);
+			ctx.lineTo(i*a, m*a);
+		   }
+		  ctx.stroke();
+
+		  //A vízszintes vonalak
+
+		  ctx.beginPath();
+		   for (i = 0; i<= m; i++){
+		   	ctx.strokeStyle="black";
+		    ctx.moveTo(0,i*a);
+			ctx.lineTo(n*a,i*a);
+		   }
+		  ctx.stroke();
+
+		 //A játék tömb feltöltése (és létrehozása)
+		  for (var i= -2; i<n+1; i++){
+		    jatek[i] = [];
+			for (var j = -2; j<m+1; j++){
+			jatek[i][j] = 0;
+			}
+		   }
+		 }
+
+		 function egerkezeles(e){
+		   var Ksor = Math.floor((+e.clientY-Y0)/a); //Hányadik sorban lévő négyzetre klikkentettek
+           var Koszl = Math.floor((+e.clientX-X0)/a); //Hányadik oszlopban lévő négyzetre klikkentettek
+
+		  if (game) {
+
+		   //O ill. x kirajzolása és jatek tömbbe mentése
+		    if (jel < 0 && jatek[Koszl][Ksor]==0 && Koszl<n && Ksor<m){
+		      ctx.beginPath();
+		      ctx.strokeStyle="black";
+		      ctx.moveTo(a*Koszl,a*Ksor);
+		      ctx.lineTo(a*Koszl+a,a*Ksor+a);
+		      ctx.moveTo(a*Koszl+a,a*Ksor);
+		      ctx.lineTo(a*Koszl,a*Ksor+a);
+		      ctx.stroke();
+              jel *= -1;
+		      jatek[Koszl][Ksor]=-1
+		  }
+
+            else if (jatek[Koszl][Ksor]==0 && Koszl<n && Ksor<m){
+		     ctx.beginPath();
+		     ctx.strokeStyle="black";
+		     ctx.arc((a*Koszl)+a/2,a*Ksor+a/2,a/2-5,0,2*Math.PI);
+		     ctx.stroke();
+             jel *= -1;
+             jatek[Koszl][Ksor] = 1;
+		 }
+		 //van e amőba
+
+		 for (var i = 0; i<n; i++){
+		      for (var j = 0; j<m; j++){
+			  matek = jatek[i][j-2]+jatek[i][j-1]+jatek[i][j]+jatek[i][j+1]+jatek[i][j+2]; //sorban (vízszintes)
+			  if (matek==5){
+		        ctx.font = "100px Arial";
+		        ctx.fillText("Nyert az O",n*a/3+40,m*a/2);
+		        ctx.font = "30px Arial";
+		        ctx.fillText("Kattintson az újrakezdéshez",n*a/3+80,m*a/2+100);
+		        game = false;
+		        ctx.beginPath();
+		        ctx.strokeStyle="red";
+		        ctx.arc((a*i)+a/2,a*(j-1)-a/2,a/2-5,0,2*Math.PI);
+                ctx.stroke();
+		        ctx.beginPath();
+				ctx.arc((a*i)+a/2,a*(j)-a/2,a/2-5,0,2*Math.PI);
+			    ctx.stroke();
+				ctx.beginPath();
+				ctx.arc((a*i)+a/2,a*(j+1)-a/2,a/2-5,0,2*Math.PI);;
+			    ctx.stroke();
+		        ctx.beginPath();
+				ctx.arc((a*i)+a/2,a*(j+2)-a/2,a/2-5,0,2*Math.PI);
+			    ctx.stroke();
+				ctx.beginPath();
+				ctx.arc((a*i)+a/2,a*(j+3)-a/2,a/2-5,0,2*Math.PI);
+		        ctx.stroke();
+		}
+			if (matek==-5){
+		        ctx.font = "100px Arial";
+		        ctx.fillText("Nyert az X",n*a/3+40,m*a/2);
+		        ctx.font = "30px Arial";
+		        ctx.fillText("Kattintson az újrakezdéshez",n*a/3+80,m*a/2+100);
+		        game = false;
+				ctx.beginPath();
+		        ctx.strokeStyle="red";
+		        ctx.moveTo(a*i,a*(j-2));
+		        ctx.lineTo(a*i+a,a*(j-1));
+		        ctx.moveTo(a*i+a,a*(j-2));
+		        ctx.lineTo(a*i,a*(j-1));
+		        ctx.moveTo(a*i,a*(j-1));
+		        ctx.lineTo(a*i+a,(a*j));
+		        ctx.moveTo(a*i+a,a*(j-1));
+		        ctx.lineTo(a*i,a*j);
+		        ctx.moveTo(a*i,a*j);
+		        ctx.lineTo(a*i+a,a*j+a);
+		        ctx.moveTo(a*i+a,a*j);
+		        ctx.lineTo(a*i,a*j+a);
+				ctx.moveTo(a*i,a*(j+1));
+		        ctx.lineTo(a*i+a,a*(j+2));
+		        ctx.moveTo(a*i+a,a*(j+1));
+		        ctx.lineTo(a*i,a*(j+2));
+		        ctx.moveTo(a*i,a*(j+2));
+		        ctx.lineTo(a*i+a,a*(j+3));
+		        ctx.moveTo(a*i+a,a*(j+2));
+		        ctx.lineTo(a*i,a*(j+3));
+		        ctx.stroke();
+		 }
+
+		    matek = jatek[i-2][j]+jatek[i-1][j]+jatek[i][j]+jatek[i+1][j]+jatek[i+2][j]; //oszlopban (függőleges)
+
+			if (matek==5){
+		        ctx.font = "100px Arial";
+		        ctx.fillText("Nyert az O",n*a/3+40,m*a/2);
+		        ctx.font = "30px Arial";
+		        ctx.fillText("Kattintson az újrakezdéshez",n*a/3+80,m*a/2+100);
+		        game = false;
+		        ctx.beginPath();
+		        ctx.strokeStyle="red";
+		        ctx.arc((a*(i-2))+a/2,a*j+(a/2),a/2-5,0,2*Math.PI);
+                ctx.stroke();
+		        ctx.beginPath();
+				ctx.arc((a*(i-1))+a/2,a*j+a/2,a/2-5,0,2*Math.PI);
+			    ctx.stroke();
+				ctx.beginPath();
+				ctx.arc((a*i)+a/2,a*j+a/2,a/2-5,0,2*Math.PI);;
+			    ctx.stroke();
+		        ctx.beginPath();
+				ctx.arc((a*(i+1))+a/2,a*j+a/2,a/2-5,0,2*Math.PI);
+			    ctx.stroke();
+				ctx.beginPath();
+				ctx.arc((a*(i+2))+a/2,a*j+a/2,a/2-5,0,2*Math.PI);
+		        ctx.stroke();
+		}
+			if (matek==-5){
+		        ctx.font = "100px Arial";
+		        ctx.fillText("Nyert az X",n*a/3+40,m*a/2);
+		        ctx.font = "30px Arial";
+		        ctx.fillText("Kattintson az újrakezdéshez",n*a/3+80,m*a/2+100);
+		        game = false;
+				ctx.beginPath();
+		        ctx.strokeStyle="red"
+		        ctx.moveTo(a*(i-2),a*(j));
+		        ctx.lineTo(a*(i-2)+a,a*(j)+a);
+		        ctx.moveTo(a*(i-2)+a,a*(j));
+		        ctx.lineTo(a*(i-2),a*(j)+a);
+		        ctx.moveTo(a*(i-1),a*(j));
+		        ctx.lineTo(a*(i-1)+a,a*(j)+a);
+		        ctx.moveTo(a*(i-1)+a,a*(j));
+		        ctx.lineTo(a*(i-1),a*(j)+a);
+		        ctx.moveTo(a*(i),a*j);
+		        ctx.lineTo(a*(i)+a,a*j+a);
+		        ctx.moveTo(a*(i)+a,a*j);
+		        ctx.lineTo(a*(i),a*j+a);
+				ctx.moveTo(a*(i+1),a*(j));
+		        ctx.lineTo(a*(i+1)+a,a*(j)+a);
+		        ctx.moveTo(a*(i+1)+a,a*(j));
+		        ctx.lineTo(a*(i+1),a*(j)+a);
+		        ctx.moveTo(a*(i+2),a*(j));
+		        ctx.lineTo(a*(i+2)+a,a*(j)+a);
+		        ctx.moveTo(a*(i+2)+a,a*(j));
+		        ctx.lineTo(a*(i+2),a*(j)+a);
+		        ctx.stroke();
+		 }
+			  matek = jatek[i-2][j-2]+jatek[i-1][j-1]+jatek[i][j]+jatek[i+1][j+1]+jatek[i+2][j+2]; //backshlash (átló)
+
+			  if (matek==5){
+		        ctx.font = "100px Arial";
+		        ctx.fillText("Nyert az O",n*a/3+40,m*a/2);
+		        ctx.font = "30px Arial";
+		        ctx.fillText("Kattintson az újrakezdéshez",n*a/3+80,m*a/2+100);
+		        game = false;
+		        ctx.beginPath();
+		        ctx.strokeStyle="red";
+		        ctx.arc((a*(i-2))+a/2,a*(j-1)-a/2,a/2-5,0,2*Math.PI);
+                ctx.stroke();
+		        ctx.beginPath();
+				ctx.arc((a*(i-1))+a/2,a*(j)-a/2,a/2-5,0,2*Math.PI);
+			    ctx.stroke();
+				ctx.beginPath();
+				ctx.arc((a*i)+a/2,a*(j+1)-a/2,a/2-5,0,2*Math.PI);;
+			    ctx.stroke();
+		        ctx.beginPath();
+				ctx.arc((a*(i+1))+a/2,a*(j+2)-a/2,a/2-5,0,2*Math.PI);
+			    ctx.stroke();
+				ctx.beginPath();
+				ctx.arc((a*(i+2))+a/2,a*(j+3)-a/2,a/2-5,0,2*Math.PI);
+		        ctx.stroke();
+		}
+			if (matek==-5){
+		        ctx.font = "100px Arial";
+		        ctx.fillText("Nyert az X",n*a/3+40,m*a/2);
+		        ctx.font = "30px Arial";
+		        ctx.fillText("Kattintson az újrakezdéshez",n*a/3+80,m*a/2+100);
+		        game = false;
+				ctx.beginPath();
+		        ctx.strokeStyle="red";
+		        ctx.moveTo(a*(i-2),a*(j-2));
+		        ctx.lineTo(a*(i-2)+a,a*(j-2)+a);
+		        ctx.moveTo(a*(i-2)+a,a*(j-2));
+		        ctx.lineTo(a*(i-2),a*(j-2)+a);
+		        ctx.moveTo(a*(i-1),a*(j-1));
+		        ctx.lineTo(a*(i-1)+a,a*(j-1)+a);
+		        ctx.moveTo(a*(i-1)+a,a*(j-1));
+		        ctx.lineTo(a*(i-1),a*(j-1)+a);
+		        ctx.moveTo(a*i,a*j);
+		        ctx.lineTo(a*i+a,a*j+a);
+		        ctx.moveTo(a*i+a,a*j);
+		        ctx.lineTo(a*i,a*j+a);
+				ctx.moveTo(a*(i+1),a*(j+1));
+		        ctx.lineTo(a*(i+1)+a,a*(j+1)+a);
+		        ctx.moveTo(a*(i+1)+a,a*(j+1));
+		        ctx.lineTo(a*(i+1),a*(j+1)+a);
+		        ctx.moveTo(a*(i+2),a*(j+2));
+		        ctx.lineTo(a*(i+2)+a,a*(j+2)+a);
+		        ctx.moveTo(a*(i+2)+a,a*(j+2));
+		        ctx.lineTo(a*(i+2),a*(j+2)+a);
+		        ctx.stroke();
+		 }
+			  matek = jatek[i-2][j+2]+jatek[i-1][j+1]+jatek[i][j]+jatek[i+1][j-1]+jatek[i+2][j-2]; //shlash (átló)
+
+			  if (matek==5){
+		        ctx.font = "100px Arial";
+		        ctx.fillText("Nyert az O",n*a/3+40,m*a/2);
+		        ctx.font = "30px Arial";
+		        ctx.fillText("Kattintson az újrakezdéshez",n*a/3+80,m*a/2+100);
+		        game = false;
+		        ctx.beginPath();
+		        ctx.strokeStyle="red";
+		        ctx.arc((a*(i-2))+a/2,a*(j+3)-a/2,a/2-5,0,2*Math.PI);
+                ctx.stroke();
+		        ctx.beginPath();
+				ctx.arc((a*(i-1))+a/2,a*(j+2)-a/2,a/2-5,0,2*Math.PI);
+			    ctx.stroke();
+				ctx.beginPath();
+				ctx.arc((a*i)+a/2,a*(j+1)-a/2,a/2-5,0,2*Math.PI);;
+			    ctx.stroke();
+		        ctx.beginPath();
+				ctx.arc((a*(i+1))+a/2,a*(j)-a/2,a/2-5,0,2*Math.PI);
+			    ctx.stroke();
+				ctx.beginPath();
+				ctx.arc((a*(i+2))+a/2,a*(j-1)-a/2,a/2-5,0,2*Math.PI);
+		        ctx.stroke();
+		}
+			if (matek==-5){
+		        ctx.font = "100px Arial";
+		        ctx.fillText("Nyert az X",n*a/3+40,m*a/2);
+		        ctx.font = "30px Arial";
+		        ctx.fillText("Kattintson az újrakezdéshez",n*a/3+80,m*a/2+100);
+		        game = false;
+				ctx.beginPath();
+		        ctx.strokeStyle="red";
+		        ctx.moveTo(a*(i-2),a*(j+2));
+		        ctx.lineTo(a*(i-2)+a,a*(j+2)+a);
+		        ctx.moveTo(a*(i-2)+a,a*(j+2));
+		        ctx.lineTo(a*(i-2),a*(j+2)+a);
+		        ctx.moveTo(a*(i-1),a*(j+1));
+		        ctx.lineTo(a*(i-1)+a,a*(j+1)+a);
+		        ctx.moveTo(a*(i-1)+a,a*(j+1));
+		        ctx.lineTo(a*(i-1),a*(j+1)+a);
+		        ctx.moveTo(a*(i),a*j);
+		        ctx.lineTo(a*(i)+a,a*j+a);
+		        ctx.moveTo(a*(i)+a,a*j);
+		        ctx.lineTo(a*(i),a*j+a);
+				ctx.moveTo(a*(i+1),a*(j-1));
+		        ctx.lineTo(a*(i+1)+a,a*(j-1)+a);
+		        ctx.moveTo(a*(i+1)+a,a*(j-1));
+		        ctx.lineTo(a*(i+1),a*(j-1)+a);
+		        ctx.moveTo(a*(i+2),a*(j-2));
+		        ctx.lineTo(a*(i+2)+a,a*(j-2)+a);
+		        ctx.moveTo(a*(i+2)+a,a*(j-2));
+		        ctx.lineTo(a*(i+2),a*(j-2)+a);
+		        ctx.stroke();
+		 }
+			  }
+			}
+		 }
+		 if (game == false){
+		 jatek = [];
+		 jel = -1;
+		 eredmeny = 0;
+		 game = true;
+		 ctx.beginPath();
+		 ctx.clearRect(0, 0, 1920, 1080);
+		 indul();
+		 }
+		 }
+
+		</script>
+    </head>
+
+    <body onload="indul();">
+	  <div height="1920" width="1080" >
+		<canvas id="canvas" width="1920" height="1080" onmousedown="egerkezeles(event)">
+		</canvas>
+	  </div>
+    </body>
+</html>

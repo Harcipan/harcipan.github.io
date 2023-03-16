@@ -1,0 +1,56 @@
+<nav>
+  <div class="navbar-cont">
+    <div class="navbar-item n-i-s" style="flex-direction: row;">
+        <a class="nav-link" href="/"style="font-family: against; font-size:50px;">PfW</a>
+        <a class="nav-link" href="/about">Rólunk</a>
+        <a class="nav-link" href="/setup">Setupok</a>
+        <a class="nav-link" href="/games">Játékok</a>
+        <a class="nav-link" href="/links">Linkek</a>
+        <a class="nav-link" href="/blog">Blog</a>
+        <a class="nav-link" href="/mcserver">Minecraft Szerver</a>
+    </div>
+  </div>
+
+  <div class="navbar-cont-mobile">
+    <div class="navbar-item n-i-s" style="flex-direction: row;">
+        <a class="nav-link" href="/"style="font-family: against; font-size:50px;">PfW</a>
+    </div>
+    <div class="navbar-item n-i-e" style="flex-direction: row;">
+        <div class="line-container">
+            <div class="line line-1"></div>
+            <div class="line line-2"></div>
+            <div class="line line-3"></div>
+        </div>
+    </div>
+</div>
+<div class="navbar-cont-mobile-list" style="flex-direction: column;">
+    <div class="navbar-item" >
+        <a class="nav-link" href="/about.">Rólunk</a>
+    </div>
+    <div class="navbar-item" >
+        <a class="nav-link" href="setup">Setupok</a>
+    </div>
+    <div class="navbar-item" >
+        <a class="nav-link" href="/games">Játékok</a>
+    </div>
+    <div class="navbar-item" >
+        <a class="nav-link" href="/links">Linkek</a>
+    </div>
+    <div class="navbar-item" >
+        <a class="nav-link" href="/blog">Blog</a>
+    </div>
+    <div class="navbar-item" >
+        <a class="nav-link" href="/mcserver">Minecraft Szerver</a>
+    </div>
+</div>
+</nav>
+
+<script>
+    const menuContainer = document.querySelector(".navbar-cont-mobile-list");
+    const lineContainer = document.querySelector(".line-container");
+    
+    lineContainer.addEventListener("click", ()=>{
+        lineContainer.classList.toggle("active")
+        menuContainer.classList.toggle("active")
+    })
+</script>
