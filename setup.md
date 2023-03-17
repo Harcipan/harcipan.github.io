@@ -2,7 +2,7 @@
 layout: page
 ---
 
-  <div style="border-bottom: solid 1px white;">
+  <div style="border-bottom: solid 1px white; color:white;">
   <h1 class="fő_cím">Setupok</h1>
   <div class="setup"><!--main-->
       <div class="c2">
