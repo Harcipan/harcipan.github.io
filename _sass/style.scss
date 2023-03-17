@@ -1,24 +1,5 @@
 *{color:white}
-	a:link {
-  color: black;
-  background-color: transparent;
-  text-decoration: none;
-  }
-
-	a:visited {
-  color: black;
-  background-color: transparent;
-  text-decoration: none;
-  }
-
-	a:hover {
-  color: black;
-  background-color: transparent;
-  text-decoration: none;
-  }
-
-	a:active {
-  color: black;
+	a:link, a:visited, a:hover, a:active {
   background-color: transparent;
   text-decoration: none;
   }

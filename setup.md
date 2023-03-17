@@ -2,7 +2,7 @@
 layout: page
 ---
 
-  <div style="border-bottom: solid 1px white; color:white;">
+  <div style="border-bottom: solid 1px white;">
   <h1 class="fő_cím">Setupok</h1>
   <div class="setup"><!--main-->
       <div class="c2">
@@ -30,7 +30,7 @@ layout: page
         	 <a class="cucc" href="https://jatekkonzol-kiegeszito.arukereso.hu/playseat/evolution-rem-00004-6-p81940656/">Playseat</a>: Playseat Evolution<br>
        </div>
 
-       <div class="setup_cont">
+<div class="setup_cont">
        <!--szervergép-->
            <h3 class="cím">Szerver</h3>
          	 <a class="cucc" href="https://www.msi.com/Motherboard/support/X58_Platinum">Alaplap</a>: MSI X58 Platinium<br>
@@ -43,7 +43,7 @@ layout: page
            <a class="cucc" href="http://www.hdsentinel.hu/storageinfo_details.php?lang=hu&model=SAMSUNG+HD103SJ">HDD2</a>: Samsung HD103SJ 1TB<br>
         </div>
     </div>
-    <div class="c3">
+<div class="c3">
        <!--harcipan setup-->
        <div class="setup_cont">
        <h3 class="cím">Harcipan</h3>
