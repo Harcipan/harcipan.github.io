@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "We have to start somewhere!"
-date:   2023-03-15 15:45:00 +0100
-categories: blog
+date:   2022-12-07 15:45:00 +0100
+categories: journal
 author: Kemecsei Kornél (Harcipan)
 ---
 Blog… Komolyan hangzik, persze csak ha komolyan csinálja az ember. Vagy mindegy?

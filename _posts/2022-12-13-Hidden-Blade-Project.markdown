@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Hidden Blade Project #1"
-date:   2023-03-15 15:45:00 +0100
+date:   2023-12-13 15:45:00 +0100
 categories: tech
 author: Kemecsei Kornél (Harcipan)
 tags: 3d, assassins' creed, hidden blade, print

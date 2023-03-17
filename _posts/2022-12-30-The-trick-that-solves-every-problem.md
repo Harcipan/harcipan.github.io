@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Getting rich slow plan"
-date:   2023-03-15 10:15:00 +0100
+title:  "The trick that solves every problem"
+date:   2022-12-30 10:15:00 +0100
 categories: lifestyle
 author: Kemecsei Kornél (Harcipan)
 tags: absurdism, existentialism, life meaning, nihilism

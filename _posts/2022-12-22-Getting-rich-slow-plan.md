@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Getting rich slow plan"
-date:   2023-03-15 15:45:00 +0100
+date:   2022-12-22 15:45:00 +0100
 categories: lifestyle
 author: Kemecsei Kornél (Harcipan)
 tags: income, money, passive, plan, rich, side hustle

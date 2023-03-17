@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Getting rich slow plan"
-date:   2023-03-15 21:30:00 +0100
+title:  "Reading, remembering, using"
+date:   2022-12-26 21:30:00 +0100
 categories: lifestyle
 author: Kemecsei Kornél (Harcipan)
 tags: books, education, knowledge, reading
