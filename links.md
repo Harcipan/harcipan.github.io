@@ -16,7 +16,7 @@ permalink: /links/
   <div class="linkek_helytolto"></div>
 
   <div class="cím">Kriszbubu:</div>
-    <div class="lista_tag" onclick="window.location='https://www.youtube.com/channel/UCy3yNK-EadvQCXvWVWrC5zQ';">
+    <div class="lista_tag" onclick="window.location='https://www.youtube.com/@Kriszbubu';">
       <div class="lista_kep"><img src="/assets/images/yt-logo.png" width="50px"></div>
       <div class="lista_nev">Youtube
         <div class="lista_leiras">Kriszbubu Youtube</div>
@@ -30,15 +30,15 @@ permalink: /links/
       </div>
     </div>
 
-  <div class="lista_tag" onclick="window.location='https://www.instagram.com/playforwin15/';">
-      <div class="lista_kep"><img src="/assets/images/kriszbubu-ig-logo.jpg" width="50px"></div>
+  <div class="lista_tag" onclick="window.location='https://www.instagram.com/kriszbubu_/';">
+      <div class="lista_kep"><img src="/assets/images/ig-logo.png" width="50px"></div>
       <div class="lista_nev">Instagram
         <div class="lista_leiras">Kriszbubu Instagram</div>
       </div>
     </div>
 
-  <div class="lista_tag" onclick="window.location='https://www.tiktok.com/@_kriszbubu_?';">
-      <div class="lista_kep"><img src="/assets/images/kriszbubu-logo.png" height="50px"></div>
+  <div class="lista_tag" onclick="window.location='https://www.tiktok.com/@kriszbubu';">
+      <div class="lista_kep"><img src="/assets/images/tiktok-logo.png" height="50px"></div>
       <div class="lista_nev">TikTok
         <div class="lista_leiras">Kriszbubu TikTok</div>
       </div>
