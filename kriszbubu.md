@@ -14,7 +14,7 @@ layout: page
       </iframe>
       </div>
       <div class="cím"><a style="color:white" href="https://www.youtube.com/channel/UCy3yNK-EadvQCXvWVWrC5zQ">Youtube</a></div>
-        <div style="text-align:center;"><iframe class="avgifr" src='https://www.youtube.com/embed/FJ2NLtFEQ1g' frameborder='0' allowfullscreen ></iframe></div>
+        <div style="text-align:center;"><iframe class="avgifr" src='https://www.youtube.com/watch?v=AKRx9ryUlKA' frameborder='0' allowfullscreen ></iframe></div>
       <div class="cím">Instagram</div>
       <div class="flex-container">
         <div class="flex-item">
