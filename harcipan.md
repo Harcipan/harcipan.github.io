@@ -1,6 +1,5 @@
 ---
 layout: page
-permalink: /harcipan/
 ---
 
   <div style="border-bottom: solid 1px white; margin:auto;">
