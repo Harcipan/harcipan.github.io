@@ -1,11 +1,12 @@
 ---
 layout: post
 title:  "Hidden Blade Project #1"
-date:   2023-12-13 15:45:00 +0100
-categories: tech
+date:   2022-12-13 15:45:00 +0100
+categories: journal
 author: Kemecsei Kornél (Harcipan)
-tags: 3d, assassins' creed, hidden blade, print
+tags: 3d, assassins creed, hidden blade, print
 ---
+
 Domonkos barátom kérésére és persze saját már régebbi vágyam miatt elkezdtem foglalkozni az Assassins’ Creed rejtett pengéjével, pontosabban annak a gyakorlatban történő (egyenlőre) műanyagból való jelmez kellék/prop megvalósításával.
 
 A probléma, – azon kívül, hogy az Ender 3 Pro nem rendelkezik dual z-axis motorral azaz jobbra lejt szóval szinte használhatatlan – az, hogy nem igazán van könnyen megvalósítható, csak műanyag részből álló lehetőség. Egyenlőre 3 opcióval találkoztam.
