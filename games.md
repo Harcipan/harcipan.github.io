@@ -1,6 +1,5 @@
 ---
 layout: page
-permalink: /games/
 ---
 
   <div style="border-bottom: solid 1px white;">
