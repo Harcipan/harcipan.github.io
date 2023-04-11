@@ -31,4 +31,4 @@ PROGRESS
 
 Push mechanizmust megértettem, megépítettem, de még nem működik rendesen. (kicsit már kirúg a penge de a gumi nagysága és a csiszolatlan alap miatt megakad)
 <hr>
-<img src="/assets/images/posts/hbp1.jpg" alt="hbp1" style="max-width:80%;">
+<div class="img-cont"><img src="/assets/images/posts/hbp1.jpg" alt="hbp1" style="max-width:80%;"></div>

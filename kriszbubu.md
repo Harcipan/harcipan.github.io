@@ -13,8 +13,8 @@ layout: page
       width="350">
       </iframe>
       </div>
-      <div class="cím"><a style="color:white" href="https://www.youtube.com/channel/UCy3yNK-EadvQCXvWVWrC5zQ">Youtube</a></div>
-        <div style="text-align:center;"><iframe class="avgifr" src='https://www.youtube.com/watch?v=AKRx9ryUlKA' frameborder='0' allowfullscreen ></iframe></div>
+      <div class="cím"><a style="color:white" href="https://www.youtube.com/@Kriszbubu">Youtube</a></div>
+        <div style="text-align:center;"><iframe class="avgifr" src="https://www.youtube.com/embed/akok2STUX0g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
       <div class="cím">Instagram</div>
       <div class="flex-container">
         <div class="flex-item">

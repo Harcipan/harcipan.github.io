@@ -5,6 +5,7 @@ date:   2023-03-03 08:25:00 +0100
 categories: journal
 author: Kemecsei Kornél (Harcipan)
 tags: hogwarts legacy, gaming, work, time, mandalorian, f1
+thumbnail: /assets/images/posts/thumbnails/hogwarts_legacy.png
 ---
 
 HOGWARTS LEGACY

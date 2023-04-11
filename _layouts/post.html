@@ -1,7 +1,16 @@
 ---
 layout: default
 ---
-<article class="post h-entry" style="margin:1rem auto; max-width: 664px; border-radius: 2rem; padding: 1rem;" itemscope itemtype="http://schema.org/BlogPosting">
+<style>
+  img{
+    max-width: 80%;
+  }
+  .img-cont{
+    width: 50rem;
+    margin: auto;
+  }
+</style>
+<article class="post post_text h-entry" style="margin:1rem auto; max-width: 664px; border-radius: 2rem; padding: 1rem;" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
     <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
@@ -15,7 +24,7 @@ layout: default
       {%- endif -%}</p>
   </header>
 
-  <div class="post-content e-content" itemprop="articleBody">
+  <div class="post-content e-content" itemprop="articleBody" style="font-size: large;">
     {{ content }}
   </div>
 
