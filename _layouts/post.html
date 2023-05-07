@@ -9,11 +9,19 @@ layout: default
     width: 50rem;
     margin: auto;
   }
-</style>
-<article class="post post_text h-entry" style="margin:1rem auto; max-width: 664px; border-radius: 2rem; padding: 1rem;" itemscope itemtype="http://schema.org/BlogPosting">
+  
+	.postwidth{
+		max-width: 664px;
+    margin:1rem auto;
+    border-radius: 2rem;
+    padding: 1rem;
+	}
 
+</style>
+<article class="post post_text h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="postwidth">
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+    <h1 class="post-title p-name" style="font-size: 3rem;" itemprop="name headline">{{ page.title | escape }}</h1>
     <p class="post-meta">
       <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
         {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
@@ -33,4 +41,5 @@ layout: default
   {%- endif -%}
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+</div>
 </article>
