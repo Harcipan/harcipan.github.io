@@ -1,21 +1,17 @@
 ﻿---
-layout: default
-title: agyu
+layout: page
 ---
-
+<!DOCTYPE html>
 <html>
  <head>
   <meta charset="utf-8">
   <style>*{margin:0px;} .toltelek{height: 20%;} @media screen and (max-width: 1222px){canvas{width:600px ;} .toltelek{height: 80%;}}</style>
   <title>Ágyú</title>
   <link rel="shortcut icon" type="image/x-icon" href="..//kepek/agyu.png" />
-  <link rel="stylesheet" type="text/css" href="..//styles/style.css?ts=<?=time()?>">
-  <link rel="stylesheet" type="text/css" href="..//styles/navbar_style.css?ts=<?=time()?>">
-  <link rel="stylesheet" type="text/css" href="..//styles/footer_style.css?ts=<?=time()?>">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script>
 
+	<script>
       var ctx;
   	  var CanvasH=600;//canvas magasság
   	  var CanvasW=1200;//canvas szélesség
@@ -266,11 +262,11 @@ title: agyu
   			e.preventDefault();
   		}
   	});
-</script>
+	</script>
  </head>
  <body onload="kezdet();" onkeydown="billle();" onkeyup="billfel();">
-    <!--<div lang="hu" id="hu"> hungarian language-->
-     	<div style="background-image: url('../kepek/pfw-hatter.jpg')">
+    <!--<div lang="hu" id="hu"> hungarian language
+     	<div style="background-image: url('../kepek/pfw-hatter.jpg')">-->
 		<div style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; color:white;">
 			<div style="width:100%;padding: 5% 0px 10px 0px;"><canvas id="vaszon" width="1200" height="600" style="background-color:LightGray;"></canvas></div>
 			<div style="text-align:left;">

@@ -5,7 +5,7 @@ date:   2023-05-01 17:00:00 +0200
 categories: journal
 author: Kemecsei Kornél (Harcipan)
 tags: goals, professional, adult, ballagás, semmittevés, jövő
-thumbnail: /assets/images/posts/thumbnails/goals.png
+thumbnail: /assets/images/posts/thumbnails/goals.jpg
 ---
 <i>Az elmúlt egy hétben rendkívül foglalkoztatott az, hogy mi is lesz velem és milyen céljaim vannak valójában. Mi az amit igazán akarok csinálni és hogyan tudom ezeket megvalósítani. Ebben a bejegyzésben a gondolatmenetemet láthatjátok ahogyan formálódik az idő múlásával és a különböző tapasztalatok megszerzésével. </i>
 
