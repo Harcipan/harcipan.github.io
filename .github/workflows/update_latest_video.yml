@@ -20,6 +20,12 @@ jobs:
     - name: Install dependencies
       run: gem install rest-client
 
+    - name: Set File Permissions
+      run: chmod 755 _data/latest_video.json
+
+    - name: Check File Ownership
+      run: ls -l _data/latest_video.json
+
     - name: Update Latest Video
       run: ruby .github/scripts/update_latest_video.rb
       env:
