@@ -2,7 +2,7 @@ name: Update Latest Video
 
 on:
   schedule:
-    - cron: '30 * * * *' # Run every hour
+    - cron: '0 * * * *' # Run every hour, adjust as needed
 
 jobs:
   update-video:
@@ -10,17 +10,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4.1.1  # Use the latest version compatible with Node.js 16
-
-    - name: Debug Output
-      run: |
-        echo "Current Directory: $(pwd)"
-        ls -l _data/latest_video.json
-        ruby --version
-        gem list
-      env:
-        YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
-        CHANNEL_ID: 'UCcEDZeft2x_hYCzSOutrytA'
+      uses: actions/checkout@vv4.1.1
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -29,12 +19,6 @@ jobs:
 
     - name: Install dependencies
       run: gem install rest-client
-
-    - name: Set File Permissions
-      run: chmod 755 _data/latest_video.json
-
-    - name: Check File Ownership
-      run: ls -l _data/latest_video.json
 
     - name: Update Latest Video
       run: ruby .github/scripts/update_latest_video.rb
