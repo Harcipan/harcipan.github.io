@@ -2,7 +2,7 @@ name: Update Latest Video
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Run every hour
+    - cron: '0 * * * *' # Run every hour
 
 jobs:
   update-video:
@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2.5.0
+      uses: actions/checkout@v2.7.0
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
