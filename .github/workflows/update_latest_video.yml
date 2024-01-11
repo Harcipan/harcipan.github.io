@@ -2,7 +2,7 @@ name: Update Latest Video
 
 on:
   schedule:
-    - cron: '* * * * *' # Run every hour
+    - cron: '0 0 * * 0' # Run every Sunday
 
 jobs:
   update-video:
