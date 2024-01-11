@@ -2,7 +2,7 @@ name: Update Latest Video
 
 on:
   schedule:
-    - cron: '0 * * * *' # Run every hour
+    - cron: '* * * * *' # Run every hour
 
 jobs:
   update-video:
@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4.1.1
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -34,3 +34,6 @@ jobs:
 
     - name: Debug - Print latest video JSON (after)
       run: cat _data/latest_video.json
+      
+    - name: push
+      run: git push origin main
