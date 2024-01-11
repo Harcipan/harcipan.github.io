@@ -35,11 +35,16 @@ jobs:
     - name: Debug - Print latest video JSON (after)
       run: cat _data/latest_video.json
 
+    - name: Configure Git user
+      run: |
+        git config --global user.email "ifj.kornel.kemecsei@gmail.com"
+        git config --global user.name "Harcipan"
+
     - name: add
       run: git add .
 
     - name: commit
-      run: git commit -m"latest video update"
+      run: git commit -m "latest video update"
     
     - name: push
       run: git push origin main
