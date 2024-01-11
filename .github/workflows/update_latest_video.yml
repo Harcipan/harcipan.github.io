@@ -34,6 +34,12 @@ jobs:
 
     - name: Debug - Print latest video JSON (after)
       run: cat _data/latest_video.json
-      
+
+    - name: add
+      run: git add .
+
+    - name: commit
+      run: git commit -m"latest video update"
+    
     - name: push
       run: git push origin main
