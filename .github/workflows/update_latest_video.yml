@@ -2,7 +2,7 @@ name: Update Latest Video
 
 on:
   schedule:
-    - cron: '0 * * * *' # Run every hour, adjust as needed
+    - cron: '0 * * * *' # Run every hour
 
 jobs:
   update-video:
@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4.1.1
+      uses: actions/checkout@v4
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -20,8 +20,17 @@ jobs:
     - name: Install dependencies
       run: gem install rest-client
 
+    - name: Debug - List Files
+      run: ls -R
+
+    - name: Debug - Print latest video JSON (before)
+      run: cat _data/latest_video.json
+
     - name: Update Latest Video
       run: ruby .github/scripts/update_latest_video.rb
       env:
         YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         CHANNEL_ID: 'UCcEDZeft2x_hYCzSOutrytA'
+
+    - name: Debug - Print latest video JSON (after)
+      run: cat _data/latest_video.json
