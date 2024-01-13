@@ -21,7 +21,7 @@ layout: page
             </div>
         </div>
         <div class="rolunk-item" onclick="window.location='/kriszbubu';">
-            <div class="rolunk-kep"><img src="/assets/images/kriszbubu-logo.jpg" width="100px"></div>
+            <div class="rolunk-kep"><img src="/assets/images/Kriszbubu/Logo.png" width="100px"></div>
             <div class="rolunk-cim">Kriszbubu
                 <div class="rolunk-leiras-cont">
                     <div class="rolunk-leiras-item">Streaming, videókészítés</div>
