@@ -30,7 +30,8 @@ jobs:
       run: ruby .github/scripts/update_latest_video.rb
       env:
         YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
-        CHANNEL_ID: 'UCcEDZeft2x_hYCzSOutrytA'
+        HP_CHANNEL_ID: 'UCcEDZeft2x_hYCzSOutrytA'
+        KB_CHANNEL_ID: 'UCy3yNK-EadvQCXvWVWrC5zQ'
 
     - name: Debug - Print latest video JSON (after)
       run: cat _data/latest_video.json

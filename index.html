@@ -2,7 +2,7 @@
 layout: home
 ---
 
-
+{% assign latest_video = site.data.latest_video %}
 <div class="imbg" style="border-bottom: solid 1px white;">
       <div class="pfw-logo-text" style="font-family: against;">PlayForWin</div>
       <div> <!--kriszbubu-->
@@ -23,7 +23,8 @@ layout: home
             </div>
           </div>
           <iframe src="https://player.twitch.tv/?channel=kriszbubu&parent=playforwin.hu" frameborder="0" allowfullscreen="true" scrolling="no" height="450" width="800"></iframe>
-          <p style="font-size:10px;">Ha az ablak azt írja, hogy a Twitch visszautasította a csatlakozást akkor az url-t cseréld ki erre: <a style="color:white;" href="https://playforwin.hu"><b>https://playforwin.hu</b></a></p>
+          <!--<p style="font-size:10px;">Ha az ablak azt írja, hogy a Twitch visszautasította a csatlakozást akkor az url-t cseréld ki erre: <a style="color:white;" href="https://playforwin.hu"><b>https://playforwin.hu</b></a></p>-->
+          <iframe class="avgifr" src="https://www.youtube.com/embed/{{ latest_video.kb_id }}" frameborder='0' allowfullscreen></iframe>
         </div>
       </div>
       <div style="padding:20px 0px 20px 0px;"> <!--harcipan-->
@@ -36,9 +37,6 @@ layout: home
             <i class="fab fa-instagram" onclick="window.location='https://www.instagram.com/kemecsei01/';"></i>
           </div>
         </div>
-        <iframe class="avgifr" src='https://www.tubebuddy.com/quicknav/latestembed/UCcEDZeft2x_hYCzSOutrytA' frameborder='0' allowfullscreen></iframe>
+        <iframe class="avgifr" src="https://www.youtube.com/embed/{{ latest_video.hp_id }}" frameborder='0' allowfullscreen></iframe>
       </div>
-      <div>{% assign latest_video = site.data.latest_video %}
-        <a href="{{ latest_video.url }}">Latest Video</a>
-        </div>
 </div>
