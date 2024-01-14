@@ -36,16 +36,24 @@ jobs:
     - name: Debug - Print latest video JSON (after)
       run: cat _data/latest_video.json
 
+    - name: Check for changes
+      run: |
+        git diff --exit-code || echo "Changes detected"
+      id: check-changes
+
     - name: Configure Git user
       run: |
         git config --global user.email "ifj.kornel.kemecsei@gmail.com"
         git config --global user.name "Harcipan"
 
     - name: add
+      if: steps.check-changes.outputs.contains_changes == 'Changes detected'
       run: git add .
 
     - name: commit
+      if: steps.check-changes.outputs.contains_changes == 'Changes detected'
       run: git commit -m "latest video update"
     
     - name: push
+      if: steps.check-changes.outputs.contains_changes == 'Changes detected'
       run: git push origin main
